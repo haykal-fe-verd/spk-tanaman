@@ -76,6 +76,15 @@ class TanamanController extends Controller
         return (new DestroyTanaman())->handle($tanaman);
     }
 
+    /**
+     * Remove multiple tanaman from storage.
+     *
+     * Deletes multiple Tanaman instances specified by the given ids.
+     * Redirects back to the previous page with a success message.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function destroy_multiple(Request $request): RedirectResponse
     {
         return (new DestroyMultipleTanaman())->handle($request);
