@@ -6,6 +6,7 @@ import {
     LucideIcon,
     MapPinned,
     PanelRightClose,
+    Scale,
     Sprout,
 } from "lucide-react";
 
@@ -42,14 +43,14 @@ export const navigations: Navigation[] = [
     },
     {
         name: "Sub Kriteria",
-        url: "/sub-kriteria",
+        url: "/subkriteria",
         icon: ListStart,
         roles: [Roles.ADMIN],
     },
     {
         name: "Nilai Perbandingan",
         url: "/nilai-perbandingan",
-        icon: GitCompareArrows,
+        icon: Scale,
         roles: [Roles.ADMIN],
     },
     {

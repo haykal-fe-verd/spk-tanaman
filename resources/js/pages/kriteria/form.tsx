@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "@inertiajs/react";
 import { Loader2 } from "lucide-react";
 
-import { Tanaman } from "@/types";
+import { Kriteria } from "@/types";
 
 import {
     Sheet,
@@ -15,18 +15,24 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import InputError from "@/components/input-error";
-import { Textarea } from "@/components/ui/textarea";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 interface FormSheetProps {
     type: "create" | "edit";
-    data?: Tanaman;
+    data?: Kriteria;
     open: boolean;
     onClose: () => void;
 }
 
 type FormInput = {
     nama: string;
-    deskripsi: string;
+    tipe: string;
 };
 
 function FormSheet({ type, data, open, onClose }: FormSheetProps) {
@@ -41,7 +47,7 @@ function FormSheet({ type, data, open, onClose }: FormSheetProps) {
         reset,
     } = useForm<FormInput>({
         nama: data?.nama || "",
-        deskripsi: data?.deskripsi || "",
+        tipe: data?.tipe || "",
     });
 
     // states
@@ -51,14 +57,14 @@ function FormSheet({ type, data, open, onClose }: FormSheetProps) {
     const onSubmit: React.FormEventHandler = async (e) => {
         e.preventDefault();
         if (isEdit && data) {
-            put(route("tanaman.update", data.id), {
+            put(route("kriteria.update", data.id), {
                 onSuccess: () => {
                     reset();
                     onClose();
                 },
             });
         } else {
-            post(route("tanaman.store"), {
+            post(route("kriteria.store"), {
                 onSuccess: () => {
                     reset();
                     onClose();
@@ -71,10 +77,10 @@ function FormSheet({ type, data, open, onClose }: FormSheetProps) {
         if (isEdit && data) {
             setData({
                 nama: data.nama,
-                deskripsi: data.deskripsi,
+                tipe: data.tipe,
             });
         } else {
-            setData({ nama: "", deskripsi: "" });
+            setData({ nama: "", tipe: "" });
         }
     }, [data, isEdit, setData]);
 
@@ -83,18 +89,21 @@ function FormSheet({ type, data, open, onClose }: FormSheetProps) {
             <SheetContent side="right">
                 <SheetHeader>
                     <SheetTitle>
-                        {type === "create" ? "Tambah Tanaman" : "Edit Tanaman"}
+                        {type === "create"
+                            ? "Tambah Kriteria"
+                            : "Edit Kriteria"}
                     </SheetTitle>
                     <SheetDescription>
                         {type === "create"
-                            ? "Masukkan informasi tanaman baru."
-                            : "Perbarui data tanaman."}
+                            ? "Masukkan informasi kriteria baru."
+                            : "Perbarui data kriteria."}
                     </SheetDescription>
                 </SheetHeader>
 
                 <form onSubmit={onSubmit} className="space-y-5 mt-10">
+                    {/* nama */}
                     <div className="flex w-full flex-col gap-2">
-                        <Label htmlFor="nama">Nama Tanaman</Label>
+                        <Label htmlFor="nama">Nama Kriteria</Label>
                         <Input
                             id="nama"
                             name="nama"
@@ -106,19 +115,31 @@ function FormSheet({ type, data, open, onClose }: FormSheetProps) {
                         <InputError message={errors.nama} />
                     </div>
 
+                    {/* tipe */}
                     <div className="flex w-full flex-col gap-2">
-                        <Label htmlFor="deskripsi">Deskripsi Tanaman</Label>
-                        <Textarea
-                            id="deskripsi"
-                            name="deskripsi"
-                            autoComplete="off"
-                            value={formData.deskripsi}
-                            onChange={(e) =>
-                                setData("deskripsi", e.target.value)
-                            }
-                        />
-                        <InputError message={errors.deskripsi} />
+                        <Label htmlFor="tipe">Tipe Kriteria</Label>
+                        <Select
+                            onValueChange={(e) => setData("tipe", e)}
+                            defaultValue={formData.tipe}
+                        >
+                            <SelectTrigger className="capitalize">
+                                <SelectValue placeholder="" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem
+                                    value="benefit"
+                                    className="capitalize"
+                                >
+                                    Benefit
+                                </SelectItem>
+                                <SelectItem value="cost" className="capitalize">
+                                    Cost
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <InputError message={errors.tipe} />
                     </div>
+
                     <Button
                         type="submit"
                         disabled={processing}

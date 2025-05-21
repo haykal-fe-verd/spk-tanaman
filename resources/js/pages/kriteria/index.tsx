@@ -1,7 +1,7 @@
 import React from "react";
-import { PlusCircle, Sprout } from "lucide-react";
+import { List, PlusCircle } from "lucide-react";
 
-import type { PaginationType, Tanaman } from "@/types";
+import type { Kriteria, PaginationType } from "@/types";
 import { useDataTable } from "@/hooks/use-data-table";
 
 import AuthLayout from "@/layouts/auth-layout";
@@ -11,15 +11,15 @@ import { DataTable } from "@/components/data-table";
 import { dataTableWithRowAction } from "@/components/data-table-with-row-action";
 import { columns } from "./columns";
 import ActionBar from "./action-bar";
+import FormSheet from "./form";
 import Detail from "./detail";
 import Delete from "./delete";
-import FormSheet from "./form";
 
-interface TanamanPageProps {
-    response: PaginationType<Tanaman>;
+interface KriteriaPageProps {
+    response: PaginationType<Kriteria>;
 }
 
-function TanamanPage({ response }: TanamanPageProps) {
+function KriteriaPage({ response }: KriteriaPageProps) {
     // hooks
     const {
         table,
@@ -28,26 +28,39 @@ function TanamanPage({ response }: TanamanPageProps) {
         activeAction,
         setActiveAction,
         closeAction,
-    } = useDataTable<Tanaman>({
+    } = useDataTable<Kriteria>({
         columns: dataTableWithRowAction(columns, (type, data) =>
             setActiveAction({ type, data })
         ),
         data: response.data,
         meta: response,
-        routeName: "tanaman.index",
+        routeName: "kriteria.index",
         defaultSort: { id: "created_at", desc: true },
     });
 
     return (
-        <AuthLayout title="Tanaman">
-            <PageWrapper title="Tanaman" Icon={Sprout}>
-                <Button
-                    className="w-fit"
-                    onClick={() => setActiveAction({ type: "create" })}
-                >
-                    <PlusCircle />
-                    Tambah Tanaman
-                </Button>
+        <AuthLayout title="Kriteria">
+            <PageWrapper title="Kriteria" Icon={List}>
+                <div className="flex flex-col lg:flex-row gap-5">
+                    <Button
+                        className="w-fit"
+                        onClick={() => setActiveAction({ type: "create" })}
+                    >
+                        <PlusCircle />
+                        Tambah Kriteria
+                    </Button>
+                </div>
+
+                <p className="text-muted-foreground text-sm text-justify">
+                    Bobot tidak diisi secara manual, tetapi dihitung bedasarkan:
+                    <br />- Perbandingan berpasangan antar kriteria.
+                    <br />- Normalisasi dan rata-rata dari hasil matriks
+                    perbandingan.
+                    <br />
+                    <br />
+                    Untuk menghitung bobot kriteria, silahkan kunjungi halaman{" "}
+                    <strong>Nilai Perbandingan</strong>.
+                </p>
 
                 <DataTable
                     table={table}
@@ -55,6 +68,14 @@ function TanamanPage({ response }: TanamanPageProps) {
                     onSearchChange={setSearch}
                     actionBar={<ActionBar table={table} />}
                 />
+
+                <p className="text-muted-foreground text-sm text-justify">
+                    Keterangan:
+                    <br />- <strong>Benefit</strong>: Semakin besar nilainya
+                    maka semakin baik.
+                    <br />- <strong>Cost</strong>: Semakin kecil nilainya maka
+                    semakin baik.
+                </p>
             </PageWrapper>
 
             {/* detail */}
@@ -85,4 +106,4 @@ function TanamanPage({ response }: TanamanPageProps) {
     );
 }
 
-export default TanamanPage;
+export default KriteriaPage;

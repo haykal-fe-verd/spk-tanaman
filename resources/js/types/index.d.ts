@@ -59,6 +59,27 @@ export type Tanaman = {
     updated_at: string;
 };
 
+// kriteria
+export type Kriteria = {
+    id: string;
+    nama: string;
+    tipe: "benefit" | "cost";
+    bobot: number | null;
+    created_at: string;
+    updated_at: string;
+};
+
+// sub kriteria
+export type SubKriteria = {
+    id: string;
+    id_kriteria: string;
+    nama: string;
+    nilai: number;
+    created_at: string;
+    updated_at: string;
+    kriteria: Kriteria;
+};
+
 // lahan
 export type Lahan = {
     id: string;

@@ -70,7 +70,6 @@ class TanamanController extends Controller
      * @param Tanaman $tanaman
      * @return RedirectResponse
      */
-
     public function destroy(Tanaman $tanaman): RedirectResponse
     {
         return (new DestroyTanaman())->handle($tanaman);

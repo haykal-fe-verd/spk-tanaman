@@ -1,7 +1,7 @@
 import React from "react";
-import { PlusCircle, Sprout } from "lucide-react";
+import { ListStart, PlusCircle } from "lucide-react";
 
-import type { PaginationType, Tanaman } from "@/types";
+import type { Kriteria, PaginationType, SubKriteria } from "@/types";
 import { useDataTable } from "@/hooks/use-data-table";
 
 import AuthLayout from "@/layouts/auth-layout";
@@ -11,15 +11,16 @@ import { DataTable } from "@/components/data-table";
 import { dataTableWithRowAction } from "@/components/data-table-with-row-action";
 import { columns } from "./columns";
 import ActionBar from "./action-bar";
+import FormSheet from "./form";
 import Detail from "./detail";
 import Delete from "./delete";
-import FormSheet from "./form";
 
-interface TanamanPageProps {
-    response: PaginationType<Tanaman>;
+interface SubKriteriaPageProps {
+    response: PaginationType<SubKriteria>;
+    kriteria: Kriteria[];
 }
 
-function TanamanPage({ response }: TanamanPageProps) {
+function SubKriteriaPage({ response, kriteria }: SubKriteriaPageProps) {
     // hooks
     const {
         table,
@@ -28,26 +29,28 @@ function TanamanPage({ response }: TanamanPageProps) {
         activeAction,
         setActiveAction,
         closeAction,
-    } = useDataTable<Tanaman>({
+    } = useDataTable<SubKriteria>({
         columns: dataTableWithRowAction(columns, (type, data) =>
             setActiveAction({ type, data })
         ),
         data: response.data,
         meta: response,
-        routeName: "tanaman.index",
+        routeName: "subkriteria.index",
         defaultSort: { id: "created_at", desc: true },
     });
 
     return (
-        <AuthLayout title="Tanaman">
-            <PageWrapper title="Tanaman" Icon={Sprout}>
-                <Button
-                    className="w-fit"
-                    onClick={() => setActiveAction({ type: "create" })}
-                >
-                    <PlusCircle />
-                    Tambah Tanaman
-                </Button>
+        <AuthLayout title="Sub Kriteria">
+            <PageWrapper title="Sub Kriteria" Icon={ListStart}>
+                <div className="flex flex-col lg:flex-row gap-5">
+                    <Button
+                        className="w-fit"
+                        onClick={() => setActiveAction({ type: "create" })}
+                    >
+                        <PlusCircle />
+                        Tambah Sub Kriteria
+                    </Button>
+                </div>
 
                 <DataTable
                     table={table}
@@ -64,7 +67,12 @@ function TanamanPage({ response }: TanamanPageProps) {
 
             {/* create */}
             {activeAction?.type === "create" && (
-                <FormSheet open type="create" onClose={closeAction} />
+                <FormSheet
+                    open
+                    type="create"
+                    onClose={closeAction}
+                    kriteria={kriteria}
+                />
             )}
 
             {/* edit */}
@@ -74,6 +82,7 @@ function TanamanPage({ response }: TanamanPageProps) {
                     type="edit"
                     data={activeAction.data}
                     onClose={closeAction}
+                    kriteria={kriteria}
                 />
             )}
 
@@ -85,4 +94,4 @@ function TanamanPage({ response }: TanamanPageProps) {
     );
 }
 
-export default TanamanPage;
+export default SubKriteriaPage;

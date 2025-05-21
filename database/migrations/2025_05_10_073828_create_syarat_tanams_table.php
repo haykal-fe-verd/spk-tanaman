@@ -28,7 +28,9 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade')
                 ->comment('id sub kriteria');
-            $table->float('nilai')->comment('nilai syarat tanam');
+            $table->float('nilai')
+                ->nullable()
+                ->comment('nilai syarat tanam');
             $table->timestamps();
         });
     }
