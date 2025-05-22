@@ -3,6 +3,7 @@ import { useForm } from "@inertiajs/react";
 import { Loader2 } from "lucide-react";
 
 import { Kriteria, SubKriteria } from "@/types";
+import { nilaiSubKriteria } from "@/data/options";
 
 import {
     Sheet,
@@ -155,21 +156,11 @@ function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
                                 <SelectValue placeholder="" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="1">
-                                    (1.0) - Sangat Baik
-                                </SelectItem>
-                                <SelectItem value="0.8">
-                                    (0.8) - Baik
-                                </SelectItem>
-                                <SelectItem value="0.6">
-                                    (0.6) - Cukup
-                                </SelectItem>
-                                <SelectItem value="0.4">
-                                    (0.4) - Kurang
-                                </SelectItem>
-                                <SelectItem value="0.2">
-                                    (0.2) - Buruk
-                                </SelectItem>
+                                {nilaiSubKriteria.map((i) => (
+                                    <SelectItem key={i.value} value={i.value}>
+                                        {i.label}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                         <InputError message={errors.nilai} />

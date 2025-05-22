@@ -22,6 +22,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { kriteriaTypes } from "@/data/options";
 
 interface FormSheetProps {
     type: "create" | "edit";
@@ -126,15 +127,15 @@ function FormSheet({ type, data, open, onClose }: FormSheetProps) {
                                 <SelectValue placeholder="" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem
-                                    value="benefit"
-                                    className="capitalize"
-                                >
-                                    Benefit
-                                </SelectItem>
-                                <SelectItem value="cost" className="capitalize">
-                                    Cost
-                                </SelectItem>
+                                {kriteriaTypes.map((i) => (
+                                    <SelectItem
+                                        key={i.value}
+                                        value={i.value}
+                                        className="capitalize"
+                                    >
+                                        {i.label}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                         <InputError message={errors.tipe} />

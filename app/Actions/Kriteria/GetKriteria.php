@@ -3,6 +3,7 @@
 namespace App\Actions\Kriteria;
 
 use App\Models\Kriteria;
+use App\Models\NilaiPerbandingan;
 use App\Traits\HasSearchAndSort;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -48,6 +49,9 @@ class GetKriteria
         $perPage = $this->resolvePerPage($request);
         $response = $query->paginate($perPage)->withQueryString();
 
-        return Inertia::render('kriteria/index', compact('response'));
+        $jumlah_perbandingan = NilaiPerbandingan::count();
+
+
+        return Inertia::render('kriteria/index', compact('response', 'jumlah_perbandingan'));
     }
 }

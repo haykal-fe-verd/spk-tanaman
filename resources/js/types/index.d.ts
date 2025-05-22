@@ -80,6 +80,18 @@ export type SubKriteria = {
     kriteria: Kriteria;
 };
 
+// nilai perbandingan
+export type NilaiPerbandingan = {
+    id: string;
+    id_kriteria_1: string;
+    id_kriteria_2: string;
+    nilai: number;
+    created_at: string;
+    updated_at: string;
+    kriteria1: Kriteria;
+    kriteria2: Kriteria;
+};
+
 // lahan
 export type Lahan = {
     id: string;

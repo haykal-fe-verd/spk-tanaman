@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Kriteria\CalculateBobotKriteria;
 use App\Actions\Kriteria\DestroyKriteria;
 use App\Actions\Kriteria\DestroyMultipleKriteria;
 use App\Actions\Kriteria\GetKriteria;
@@ -87,5 +88,20 @@ class KriteriaController extends Controller
     public function destroy_multiple(Request $request): RedirectResponse
     {
         return (new DestroyMultipleKriteria())->handle($request);
+    }
+
+    /**
+     * Calculate the AHP weights for the kriteria.
+     *
+     * This method will calculate the AHP weights for the kriteria and store them
+     * in the database. It will then redirect back to the previous page with a
+     * success message.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function calculate_ahp(Request $request): RedirectResponse
+    {
+        return (new CalculateBobotKriteria())->handle();
     }
 }

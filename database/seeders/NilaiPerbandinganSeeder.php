@@ -18,12 +18,12 @@ class NilaiPerbandinganSeeder extends Seeder
 
         foreach ($kriteria as $i => $k1) {
             foreach ($kriteria as $j => $k2) {
-                if ($i >= $j) continue; // hindari duplikat dan perbandingan diri sendiri
+                if ($i >= $j) continue;
 
                 NilaiPerbandingan::create([
                     'id_kriteria_1' => $k1->id,
                     'id_kriteria_2' => $k2->id,
-                    'nilai' => rand(1, 9), // random nilai skala AHP
+                    'nilai' => rand(1, 9),
                 ]);
             }
         }
