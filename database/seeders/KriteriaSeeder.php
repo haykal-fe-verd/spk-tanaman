@@ -31,7 +31,7 @@ class KriteriaSeeder extends Seeder
             ],
             [
                 'nama' => 'Kebutuhan Air',
-                'tipe' => 'cost',
+                'tipe' => 'benefit',
                 'bobot' => null,
             ],
             [

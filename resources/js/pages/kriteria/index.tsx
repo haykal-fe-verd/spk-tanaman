@@ -18,6 +18,7 @@ import { router } from '@inertiajs/react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 import axios from 'axios';
+import Keterangan from './keterangan';
 
 interface KriteriaPageProps {
     response: PaginationType<Kriteria>;
@@ -119,16 +120,6 @@ function KriteriaPage({ response, jumlah_perbandingan }: KriteriaPageProps) {
                     </Button>
                 </div>
 
-                <p className="text-muted-foreground text-sm text-justify">
-                    Bobot tidak diisi secara manual, tetapi dihitung bedasarkan:
-                    <br />- Perbandingan berpasangan antar kriteria.
-                    <br />- Normalisasi dan rata-rata dari hasil matriks perbandingan.
-                    <br />
-                    <br />
-                    Untuk menghitung bobot kriteria, silahkan kunjungi halaman{' '}
-                    <strong>Nilai Perbandingan</strong>.
-                </p>
-
                 <DataTable
                     table={table}
                     search={search}
@@ -136,11 +127,7 @@ function KriteriaPage({ response, jumlah_perbandingan }: KriteriaPageProps) {
                     actionBar={<ActionBar table={table} />}
                 />
 
-                <p className="text-muted-foreground text-sm text-justify">
-                    <strong>Keterangan</strong>:
-                    <br />- <strong>Benefit</strong>: Semakin besar nilainya maka semakin baik.
-                    <br />- <strong>Cost</strong>: Semakin kecil nilainya maka semakin baik.
-                </p>
+                <Keterangan />
             </PageWrapper>
 
             {/* detail */}

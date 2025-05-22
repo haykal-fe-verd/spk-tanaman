@@ -108,6 +108,15 @@ class KriteriaController extends Controller
     }
 
 
+    /**
+     * Check the consistency of the AHP matrix.
+     *
+     * This method will check the consistency of the AHP matrix and return the
+     * result as a JSON response. The result will contain the CR (Consistency
+     * Ratio), CI (Consistency Index), and lambda max of the AHP matrix.
+     *
+     * @return JsonResponse
+     */
     public function check_konsistensi(Request $request): JsonResponse
     {
         $hasil = (new CheckKonsistensiAHP())->handle();
