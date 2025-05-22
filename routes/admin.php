@@ -22,6 +22,8 @@ Route::middleware(['auth', 'verified', 'can:admin'])->group(function () {
     Route::delete('/kriteria/{kriteria}', [KriteriaController::class, 'destroy'])->name('kriteria.destroy');
     Route::post('/kriteria/multiple', [KriteriaController::class, 'destroy_multiple'])->name('kriteria.destroy.multiple');
     Route::post('/kriteria/calculate', [KriteriaController::class, 'calculate_ahp'])->name('kriteria.calculate');
+    Route::post('/kriteria/check-konsistensi', [KriteriaController::class, 'check_konsistensi'])->name('kriteria.check.konsistensi');
+
 
 
     // subkriteria

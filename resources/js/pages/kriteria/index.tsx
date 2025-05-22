@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, List, PlusCircle } from 'lucide-react';
+import { Calculator, List, PlusCircle, ShieldCheck } from 'lucide-react';
 
 import type { Kriteria, PaginationType } from '@/types';
 import { useDataTable } from '@/hooks/use-data-table';
@@ -16,6 +16,8 @@ import Detail from './detail';
 import Delete from './delete';
 import { router } from '@inertiajs/react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { toast } from 'sonner';
+import axios from 'axios';
 
 interface KriteriaPageProps {
     response: PaginationType<Kriteria>;
@@ -54,6 +56,29 @@ function KriteriaPage({ response, jumlah_perbandingan }: KriteriaPageProps) {
         );
     };
 
+    const handleCheckKonsistensi = async () => {
+        try {
+            const { data } = await axios.post(route('kriteria.check.konsistensi'));
+
+            if (!data.status) {
+                toast.error('Oops', {
+                    description: data.message,
+                });
+                return;
+            }
+
+            toast.success(data.konsisten ? 'Konsisten ✅' : 'Tidak Konsisten ❌', {
+                description: `λ max: ${data.lambda_max}, CI: ${data.ci}, CR: ${data.cr}`,
+            });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.error('Oops', {
+                    description: err.message,
+                });
+            }
+        }
+    };
+
     return (
         <AuthLayout title="Kriteria">
             <PageWrapper title="Kriteria" Icon={List}>
@@ -65,9 +90,10 @@ function KriteriaPage({ response, jumlah_perbandingan }: KriteriaPageProps) {
 
                     <TooltipProvider>
                         <Tooltip>
-                            <TooltipTrigger>
+                            <TooltipTrigger className="w-fit">
                                 <Button
                                     variant="secondary"
+                                    className="w-fit"
                                     onClick={handleCalculate}
                                     disabled={!isPerbandinganLengkap}
                                 >
@@ -82,6 +108,15 @@ function KriteriaPage({ response, jumlah_perbandingan }: KriteriaPageProps) {
                             )}
                         </Tooltip>
                     </TooltipProvider>
+
+                    <Button
+                        variant="destructive"
+                        className="w-fit"
+                        onClick={handleCheckKonsistensi}
+                    >
+                        <ShieldCheck />
+                        Cek Konsistensi AHP
+                    </Button>
                 </div>
 
                 <p className="text-muted-foreground text-sm text-justify">
@@ -102,7 +137,7 @@ function KriteriaPage({ response, jumlah_perbandingan }: KriteriaPageProps) {
                 />
 
                 <p className="text-muted-foreground text-sm text-justify">
-                    Keterangan:
+                    <strong>Keterangan</strong>:
                     <br />- <strong>Benefit</strong>: Semakin besar nilainya maka semakin baik.
                     <br />- <strong>Cost</strong>: Semakin kecil nilainya maka semakin baik.
                 </p>

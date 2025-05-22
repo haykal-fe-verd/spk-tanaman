@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Kriteria\CalculateBobotKriteria;
+use App\Actions\Kriteria\CheckKonsistensiAHP;
 use App\Actions\Kriteria\DestroyKriteria;
 use App\Actions\Kriteria\DestroyMultipleKriteria;
 use App\Actions\Kriteria\GetKriteria;
@@ -11,6 +12,7 @@ use App\Actions\Kriteria\UpdateKriteria;
 use App\Http\Requests\Kriteria\StoreKriteriaRequest;
 use App\Http\Requests\Kriteria\UpdateKriteriaRequest;
 use App\Models\Kriteria;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
@@ -103,5 +105,13 @@ class KriteriaController extends Controller
     public function calculate_ahp(Request $request): RedirectResponse
     {
         return (new CalculateBobotKriteria())->handle();
+    }
+
+
+    public function check_konsistensi(Request $request): JsonResponse
+    {
+        $hasil = (new CheckKonsistensiAHP())->handle();
+
+        return response()->json($hasil);
     }
 }
