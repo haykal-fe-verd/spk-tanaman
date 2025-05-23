@@ -54,7 +54,7 @@ export const navigations: Navigation[] = [
     },
     {
         name: 'Syarat Tanam',
-        url: '/sub-kriteria',
+        url: '/syarat-tanam',
         icon: PanelRightClose,
         roles: [Roles.ADMIN],
     },

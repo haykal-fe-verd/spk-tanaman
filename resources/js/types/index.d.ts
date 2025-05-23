@@ -1,4 +1,5 @@
-import { Config } from "ziggy-js";
+import { SubKriteria } from './index.d';
+import { Config } from 'ziggy-js';
 
 export interface User {
     id: string;
@@ -16,9 +17,7 @@ export type Flash = {
     error?: string;
 };
 
-export type PageProps<
-    T extends Record<string, unknown> = Record<string, unknown>
-> = T & {
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
     };
@@ -63,8 +62,9 @@ export type Tanaman = {
 export type Kriteria = {
     id: string;
     nama: string;
-    tipe: "benefit" | "cost";
+    tipe: 'benefit' | 'cost';
     bobot: number | null;
+    sub_kriteria: SubKriteria[];
     created_at: string;
     updated_at: string;
 };
@@ -90,6 +90,20 @@ export type NilaiPerbandingan = {
     updated_at: string;
     kriteria1: Kriteria;
     kriteria2: Kriteria;
+};
+
+// syarat tanam
+export type SyaratTanam = {
+    id: string;
+    id_tanaman: string;
+    id_kriteria: string;
+    id_sub_kriteria: string;
+    nilai: number;
+    created_at: string;
+    updated_at: string;
+    tanaman: Tanaman;
+    kriteria: Kriteria;
+    subkriteria: SubKriteria;
 };
 
 // lahan

@@ -1,7 +1,7 @@
 import React from 'react';
-import { PlusCircle, Sprout } from 'lucide-react';
+import { PanelRightClose, PlusCircle } from 'lucide-react';
 
-import type { PaginationType, Tanaman } from '@/types';
+import type { Kriteria, PaginationType, SyaratTanam, Tanaman } from '@/types';
 import { useDataTable } from '@/hooks/use-data-table';
 
 import AuthLayout from '@/layouts/auth-layout';
@@ -16,29 +16,31 @@ import Delete from './delete';
 import FormSheet from './form';
 import Keterangan from './keterangan';
 
-interface TanamanPageProps {
-    response: PaginationType<Tanaman>;
+interface SyaratTanamPageProps {
+    response: PaginationType<SyaratTanam>;
+    tanaman: Tanaman[];
+    kriteria: Kriteria[];
 }
 
-function TanamanPage({ response }: TanamanPageProps) {
+function SyaratTanamPage({ response, tanaman, kriteria }: SyaratTanamPageProps) {
     // hooks
     const { table, search, setSearch, activeAction, setActiveAction, closeAction } =
-        useDataTable<Tanaman>({
+        useDataTable<SyaratTanam>({
             columns: dataTableWithRowAction(columns, (type, data) =>
                 setActiveAction({ type, data })
             ),
             data: response.data,
             meta: response,
-            routeName: 'tanaman.index',
+            routeName: 'syarattanam.index',
             defaultSort: { id: 'created_at', desc: true },
         });
 
     return (
-        <AuthLayout title="Tanaman">
-            <PageWrapper title="Tanaman" Icon={Sprout}>
+        <AuthLayout title="Syarat Tanam">
+            <PageWrapper title="Syarat Tanam" Icon={PanelRightClose}>
                 <Button className="w-fit" onClick={() => setActiveAction({ type: 'create' })}>
                     <PlusCircle />
-                    Tambah Tanaman
+                    Tambah Syarat Tanam
                 </Button>
 
                 <DataTable
@@ -58,12 +60,25 @@ function TanamanPage({ response }: TanamanPageProps) {
 
             {/* create */}
             {activeAction?.type === 'create' && (
-                <FormSheet open type="create" onClose={closeAction} />
+                <FormSheet
+                    open
+                    type="create"
+                    onClose={closeAction}
+                    tanaman={tanaman}
+                    kriteria={kriteria}
+                />
             )}
 
             {/* edit */}
             {activeAction?.type === 'edit' && activeAction.data && (
-                <FormSheet open type="edit" data={activeAction.data} onClose={closeAction} />
+                <FormSheet
+                    open
+                    type="edit"
+                    data={activeAction.data}
+                    onClose={closeAction}
+                    tanaman={tanaman}
+                    kriteria={kriteria}
+                />
             )}
 
             {/* delete */}
@@ -74,4 +89,4 @@ function TanamanPage({ response }: TanamanPageProps) {
     );
 }
 
-export default TanamanPage;
+export default SyaratTanamPage;

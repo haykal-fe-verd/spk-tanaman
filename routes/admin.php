@@ -3,6 +3,7 @@
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\NilaiPerbandinganController;
 use App\Http\Controllers\SubKriteriaController;
+use App\Http\Controllers\SyaratTanamController;
 use App\Http\Controllers\TanamanController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,6 @@ Route::middleware(['auth', 'verified', 'can:admin'])->group(function () {
     Route::post('/kriteria/calculate', [KriteriaController::class, 'calculate_ahp'])->name('kriteria.calculate');
     Route::post('/kriteria/check-konsistensi', [KriteriaController::class, 'check_konsistensi'])->name('kriteria.check.konsistensi');
 
-
-
     // subkriteria
     Route::get('/subkriteria', [SubKriteriaController::class, 'index'])->name('subkriteria.index');
     Route::post('/subkriteria', [SubKriteriaController::class, 'store'])->name('subkriteria.store');
@@ -36,4 +35,11 @@ Route::middleware(['auth', 'verified', 'can:admin'])->group(function () {
     // nilai perbandingan
     Route::get('/nilai-perbandingan', [NilaiPerbandinganController::class, 'index'])->name('perbandingan.index');
     Route::post('/nilai-perbandingan', [NilaiPerbandinganController::class, 'store'])->name('perbandingan.store');
+
+    // syarat tanam
+    Route::get('/syarat-tanam', [SyaratTanamController::class, 'index'])->name('syarattanam.index');
+    Route::post('/syarat-tanam', [SyaratTanamController::class, 'store'])->name('syarattanam.store');
+    Route::put('/syarat-tanam/{syarattanam}', [SyaratTanamController::class, 'update'])->name('syarattanam.update');
+    Route::delete('/syarat-tanam/{syarattanam}', [SyaratTanamController::class, 'destroy'])->name('syarattanam.destroy');
+    Route::post('/syarat-tanam/multiple', [SyaratTanamController::class, 'destroy_multiple'])->name('syarattanam.destroy.multiple');
 });

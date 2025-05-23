@@ -1,12 +1,12 @@
 import { ColumnDef } from '@tanstack/react-table';
 
-import type { SubKriteria } from '@/types';
+import type { SyaratTanam } from '@/types';
 import { formatDate } from '@/lib/utils';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/data-table-column-header';
 
-export const columns: ColumnDef<SubKriteria>[] = [
+export const columns: ColumnDef<SyaratTanam>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -50,29 +50,26 @@ export const columns: ColumnDef<SubKriteria>[] = [
         size: 40,
     },
     {
-        id: 'kriteria',
-        accessorKey: 'kriteria.nama',
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Kriteria" />,
-        cell: ({ row }) => {
-            const kriteria = row.original.kriteria?.nama || '-';
-            return <div className="whitespace-nowrap">{kriteria}</div>;
-        },
+        id: 'tanaman',
+        accessorKey: 'tanaman.nama',
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Tanaman" />,
     },
     {
-        id: 'nama',
-        accessorKey: 'nama',
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Sub Kriteria" />,
+        id: 'kriteria',
+        accessorKey: 'kriteria.nama',
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Kriteria" />,
+    },
+    {
+        id: 'subkriteria',
+        accessorKey: 'subkriteria.nama',
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Sub Kriteria" />,
+        enableSorting: false,
+        enableHiding: false,
     },
     {
         id: 'nilai',
         accessorKey: 'nilai',
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Nilai (TOPSIS)" />,
-        cell: ({ row }) => {
-            const nilai = row.getValue('nilai') as number;
-            return (
-                <div className="whitespace-nowrap">{nilai != null ? nilai.toFixed(1) : '-'}</div>
-            );
-        },
+        header: ({ column }) => <DataTableColumnHeader column={column} title="Nilai" />,
     },
     {
         id: 'created_at',

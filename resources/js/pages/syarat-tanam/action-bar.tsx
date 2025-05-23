@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 import { router } from '@inertiajs/react';
 
 import type { Table } from '@tanstack/react-table';
-import { SubKriteria } from '@/types';
+import { SyaratTanam } from '@/types';
 import { formatDate } from '@/lib/utils';
 
 import {
@@ -25,7 +25,7 @@ import {
 import { toast } from 'sonner';
 
 interface ActionBarProps {
-    table: Table<SubKriteria>;
+    table: Table<SyaratTanam>;
 }
 
 function ActionBar({ table }: ActionBarProps) {
@@ -39,11 +39,11 @@ function ActionBar({ table }: ActionBarProps) {
         if (selectedRows.length === 0) return;
 
         const dataToExport = selectedRows.map(
-            ({ id, kriteria, nama, nilai, created_at, updated_at }) => ({
+            ({ id, tanaman, kriteria, subkriteria, created_at, updated_at }) => ({
                 Id: id,
+                Tanaman: tanaman.nama,
                 Kriteria: kriteria.nama,
-                Nama: nama,
-                'Nilai (Topsis)': nilai,
+                Subkriteria: subkriteria.nama,
                 Created: formatDate(created_at),
                 Updated: formatDate(updated_at),
             })
@@ -51,15 +51,15 @@ function ActionBar({ table }: ActionBarProps) {
 
         const worksheet = XLSX.utils.json_to_sheet(dataToExport);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sub Kriteria');
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Syarat Tanam');
 
-        XLSX.writeFile(workbook, 'subkriteria_terpilih.xlsx');
+        XLSX.writeFile(workbook, 'syarat_tanam_terpilih.xlsx');
     };
 
     const handleDeleteSelected = () => {
         const ids = selectedRows.map(item => item.id);
         router.post(
-            route('subkriteria.destroy.multiple'),
+            route('syarattanam.destroy.multiple'),
             {
                 ids,
             },
