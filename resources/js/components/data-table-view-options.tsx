@@ -1,33 +1,27 @@
-import React from "react";
-import { ChevronsUpDown, Settings2 } from "lucide-react";
-import type { Table } from "@tanstack/react-table";
-import { formatColumnId } from "@/lib/utils";
+import React from 'react';
+import { ChevronsUpDown, Settings2 } from 'lucide-react';
+import type { Table } from '@tanstack/react-table';
+import { formatColumnId } from '@/lib/utils';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 interface DataTableViewOptionsProps<TData> {
     table: Table<TData>;
 }
 
-export function DataTableViewOptions<TData>({
-    table,
-}: DataTableViewOptionsProps<TData>) {
+export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps<TData>) {
     // state
     const columns = React.useMemo(
         () =>
             table
                 .getAllColumns()
-                .filter(
-                    (column) =>
-                        typeof column.accessorFn !== "undefined" &&
-                        column.getCanHide()
-                ),
+                .filter(column => typeof column.accessorFn !== 'undefined' && column.getCanHide()),
         [table]
     );
 
@@ -39,7 +33,7 @@ export function DataTableViewOptions<TData>({
                     role="combobox"
                     variant="outline"
                     size="sm"
-                    className="ml-auto hidden h-8 lg:flex"
+                    className="ml-auto h-8 flex"
                 >
                     <Settings2 />
                     Kolom
@@ -47,15 +41,13 @@ export function DataTableViewOptions<TData>({
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[150px]">
-                {columns.map((column) => {
+                {columns.map(column => {
                     return (
                         <DropdownMenuCheckboxItem
                             key={column.id}
                             className="capitalize"
                             checked={column.getIsVisible()}
-                            onCheckedChange={(value) =>
-                                column.toggleVisibility(!!value)
-                            }
+                            onCheckedChange={value => column.toggleVisibility(!!value)}
                         >
                             {formatColumnId(column.id)}
                         </DropdownMenuCheckboxItem>

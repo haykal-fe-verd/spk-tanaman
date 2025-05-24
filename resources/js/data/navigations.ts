@@ -3,7 +3,6 @@ import {
     List,
     ListStart,
     LucideIcon,
-    MapPinned,
     PanelRightClose,
     Scale,
     Sprout,
@@ -57,13 +56,5 @@ export const navigations: Navigation[] = [
         url: '/syarat-tanam',
         icon: PanelRightClose,
         roles: [Roles.ADMIN],
-    },
-
-    //! USER
-    {
-        name: 'Lahan',
-        url: '/lahan',
-        icon: MapPinned,
-        roles: [Roles.USER],
     },
 ];

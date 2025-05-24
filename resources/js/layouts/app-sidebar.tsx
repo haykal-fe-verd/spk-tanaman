@@ -1,18 +1,11 @@
-import React from "react";
-import { Link, usePage } from "@inertiajs/react";
-import {
-    Bell,
-    ChevronRight,
-    ChevronsUpDown,
-    LogOut,
-    SquareAsterisk,
-    UserPen,
-} from "lucide-react";
+import React from 'react';
+import { Link, usePage } from '@inertiajs/react';
+import { ChevronRight, ChevronsUpDown, LogOut, SquareAsterisk, UserPen } from 'lucide-react';
 
-import { PageProps } from "@/types";
-import { getInitial, hasAccess } from "@/lib/utils";
-import { Role } from "@/data/roles";
-import { navigations } from "@/data/navigations";
+import { PageProps } from '@/types';
+import { getInitial, hasAccess } from '@/lib/utils';
+import { Role } from '@/data/roles';
+import { navigations } from '@/data/navigations';
 
 import {
     Sidebar,
@@ -28,12 +21,8 @@ import {
     SidebarMenuSubItem,
     SidebarRail,
     useSidebar,
-} from "@/components/ui/sidebar";
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from '@/components/ui/sidebar';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -42,9 +31,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Icons } from "@/components/icons";
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Icons } from '@/components/icons';
 
 function SidebarItem() {
     // hooks
@@ -52,18 +41,17 @@ function SidebarItem() {
 
     //  states
     const currentPath = new URL(ziggy.location).pathname;
-    const filteredNavigations = navigations.filter((item) =>
+    const filteredNavigations = navigations.filter(item =>
         hasAccess(auth.user.role as Role, item.roles)
     );
 
     return (
         <SidebarGroup>
             <SidebarMenu className="overfl">
-                {filteredNavigations.map((item) => {
+                {filteredNavigations.map(item => {
                     const isActive =
-                        item.children?.some(
-                            (subItem) => subItem.url === currentPath
-                        ) || currentPath.startsWith(item.url);
+                        item.children?.some(subItem => subItem.url === currentPath) ||
+                        currentPath.startsWith(item.url);
 
                     return item.children ? (
                         <Collapsible
@@ -83,28 +71,19 @@ function SidebarItem() {
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
                                         {item.children
-                                            .filter((subItem) =>
-                                                hasAccess(
-                                                    auth.user.role as Role,
-                                                    subItem.roles
-                                                )
+                                            .filter(subItem =>
+                                                hasAccess(auth.user.role as Role, subItem.roles)
                                             )
-                                            .map((subItem) => (
-                                                <SidebarMenuSubItem
-                                                    key={subItem.name}
-                                                >
+                                            .map(subItem => (
+                                                <SidebarMenuSubItem key={subItem.name}>
                                                     <SidebarMenuSubButton
                                                         isActive={currentPath.startsWith(
                                                             subItem.url
                                                         )}
                                                         asChild
                                                     >
-                                                        <Link
-                                                            href={subItem.url}
-                                                        >
-                                                            <span>
-                                                                {subItem.name}
-                                                            </span>
+                                                        <Link href={subItem.url}>
+                                                            <span>{subItem.name}</span>
                                                         </Link>
                                                     </SidebarMenuSubButton>
                                                 </SidebarMenuSubItem>
@@ -153,19 +132,15 @@ function SidebarUser() {
                                 </AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">
-                                    {auth?.user?.name}
-                                </span>
-                                <span className="truncate text-[8px]">
-                                    {auth?.user?.email}
-                                </span>
+                                <span className="truncate font-semibold">{auth?.user?.name}</span>
+                                <span className="truncate text-[8px]">{auth?.user?.email}</span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                        side={isMobile ? "bottom" : "right"}
+                        side={isMobile ? 'bottom' : 'right'}
                         align="end"
                         sideOffset={4}
                     >
@@ -184,9 +159,7 @@ function SidebarUser() {
                                     <span className="truncate font-semibold">
                                         {auth?.user?.name}
                                     </span>
-                                    <span className="truncate text-[8px]">
-                                        {auth?.user?.email}
-                                    </span>
+                                    <span className="truncate text-[8px]">{auth?.user?.email}</span>
                                 </div>
                             </div>
                         </DropdownMenuLabel>
@@ -198,14 +171,9 @@ function SidebarUser() {
                                     Profil
                                 </Link>
                             </DropdownMenuItem>
+
                             <DropdownMenuItem asChild>
-                                <Link href="/profile">
-                                    <Bell />
-                                    Notifikasi
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                                <Link href="/profile">
+                                <Link href="/ganti-password">
                                     <SquareAsterisk />
                                     Ganti Password
                                 </Link>
@@ -216,10 +184,10 @@ function SidebarUser() {
                         <DropdownMenuGroup>
                             <DropdownMenuItem asChild>
                                 <Link
-                                    href={route("logout")}
+                                    href={route('logout')}
                                     as="button"
                                     method="post"
-                                    className="w-full bg-destructive "
+                                    className="w-full bg-destructive text-destructive-foreground"
                                 >
                                     <LogOut />
                                     Logout

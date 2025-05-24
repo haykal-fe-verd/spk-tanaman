@@ -1,11 +1,11 @@
-import React from "react";
-import { Maximize, Minimize, RefreshCcw } from "lucide-react";
+import React from 'react';
+import { Maximize, Minimize, RefreshCcw } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-import { Button } from "@/components/ui/button";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import ToggleTheme from "@/components/toggle-theme";
+import { Button } from '@/components/ui/button';
+import { SidebarTrigger } from '@/components/ui/sidebar';
+import ToggleTheme from '@/components/toggle-theme';
 
 function FullscreenTrigger() {
     const [isFullscreen, setIsFullscreen] = React.useState<boolean>(() =>
@@ -17,20 +17,15 @@ function FullscreenTrigger() {
             setIsFullscreen(Boolean(document.fullscreenElement));
         };
 
-        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
         return () => {
-            document.removeEventListener(
-                "fullscreenchange",
-                handleFullscreenChange
-            );
+            document.removeEventListener('fullscreenchange', handleFullscreenChange);
         };
     }, []);
 
     const toggleFullscreen = () => {
         if (!document.fullscreenElement) {
-            document.documentElement
-                .requestFullscreen()
-                .then(() => setIsFullscreen(true));
+            document.documentElement.requestFullscreen().then(() => setIsFullscreen(true));
         } else {
             document.exitFullscreen().then(() => setIsFullscreen(false));
         }
@@ -40,7 +35,7 @@ function FullscreenTrigger() {
         <Button
             variant="ghost"
             size="icon"
-            className={cn("h-7 w-7 transition-transform duration-150")}
+            className={cn('h-7 w-7 transition-transform duration-150')}
             onClick={toggleFullscreen}
         >
             {isFullscreen ? <Minimize /> : <Maximize />}
@@ -59,7 +54,7 @@ function RefreshTrigger() {
         <Button
             variant="ghost"
             size="icon"
-            className={cn("h-7 w-7 transition-transform duration-150")}
+            className={cn('h-7 w-7 transition-transform duration-150')}
             onClick={handleRefresh}
         >
             <RefreshCcw />
@@ -70,7 +65,7 @@ function RefreshTrigger() {
 
 function Topbar() {
     return (
-        <header className="w-full px-4 py-2 h-14 flex items-center justify-between bg-card rounded-md shadow-sm">
+        <header className="w-full px-4 py-2 h-14 flex items-center justify-between bg-card rounded-md shadow-sm border">
             <div className="flex items-center gap-3">
                 <SidebarTrigger />
             </div>

@@ -1,23 +1,18 @@
-import type { Table } from "@tanstack/react-table";
-import {
-    ChevronLeft,
-    ChevronRight,
-    ChevronsLeft,
-    ChevronsRight,
-} from "lucide-react";
+import type { Table } from '@tanstack/react-table';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
-interface DataTablePaginationProps<TData> extends React.ComponentProps<"div"> {
+interface DataTablePaginationProps<TData> extends React.ComponentProps<'div'> {
     table: Table<TData>;
     pageSizeOptions?: number[];
 }
@@ -31,39 +26,31 @@ export function DataTablePagination<TData>({
     return (
         <div
             className={cn(
-                "flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8",
+                'flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8',
                 className
             )}
             {...props}
         >
             <div className="flex-1 whitespace-nowrap text-muted-foreground text-sm">
-                {table.getFilteredSelectedRowModel().rows.length} dari{" "}
+                {table.getFilteredSelectedRowModel().rows.length} dari{' '}
                 {table.getFilteredRowModel().rows.length} baris dipilih.
             </div>
+
             <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
                 <div className="flex items-center space-x-2">
-                    <p className="whitespace-nowrap font-medium text-sm">
-                        Baris per halaman
-                    </p>
+                    <p className="whitespace-nowrap font-medium text-sm">Baris per halaman</p>
                     <Select
                         value={`${table.getState().pagination.pageSize}`}
-                        onValueChange={(value) => {
+                        onValueChange={value => {
                             table.setPageSize(Number(value));
                         }}
                     >
                         <SelectTrigger className="h-8 w-[4.5rem] [&[data-size]]:h-8">
-                            <SelectValue
-                                placeholder={
-                                    table.getState().pagination.pageSize
-                                }
-                            />
+                            <SelectValue placeholder={table.getState().pagination.pageSize} />
                         </SelectTrigger>
                         <SelectContent side="top">
-                            {pageSizeOptions.map((pageSize) => (
-                                <SelectItem
-                                    key={pageSize}
-                                    value={`${pageSize}`}
-                                >
+                            {pageSizeOptions.map(pageSize => (
+                                <SelectItem key={pageSize} value={`${pageSize}`}>
                                     {pageSize}
                                 </SelectItem>
                             ))}
@@ -71,8 +58,7 @@ export function DataTablePagination<TData>({
                     </Select>
                 </div>
                 <div className="flex items-center justify-center font-medium text-sm">
-                    Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
-                    {table.getPageCount()}
+                    Halaman {table.getState().pagination.pageIndex + 1} dari {table.getPageCount()}
                 </div>
                 <div className="flex items-center space-x-2">
                     <Button
@@ -110,9 +96,7 @@ export function DataTablePagination<TData>({
                         variant="outline"
                         size="icon"
                         className="hidden size-8 lg:flex"
-                        onClick={() =>
-                            table.setPageIndex(table.getPageCount() - 1)
-                        }
+                        onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                         disabled={!table.getCanNextPage()}
                     >
                         <ChevronsRight />

@@ -21,6 +21,7 @@ class LahanSeeder extends Seeder
                 'id_user' => $value->id,
                 'nama' => 'Lahan ' . $value->name,
                 'luas' => rand(100, 500),
+                'lokasi' => 'Jln. Gagak No.05 Kota Jantho'
             ]);
         }
     }

@@ -116,8 +116,17 @@ export type Lahan = {
     created_at: string;
     updated_at: string;
     user: User;
-    riwayatTanam: RiwayatTanam[];
-    kriteriaLahan: KriteriaLahan[];
+    riwayat_tanam: RiwayatTanam[];
+    kriteria_lahan: {
+        id: 'string';
+        id_lahan: 'string';
+        id_kriteria: 'string';
+        id_sub_kriteria: 'string';
+        created_at: 'string';
+        updated_at: 'string';
+        kriteria: Kriteria;
+        sub_kriteria: SubKriteria;
+    }[];
 };
 
 // kriteria lahan

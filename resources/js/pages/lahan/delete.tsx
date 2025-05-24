@@ -1,8 +1,8 @@
 import React from 'react';
-import { Loader2 } from 'lucide-react';
 import { router } from '@inertiajs/react';
+import { Loader2 } from 'lucide-react';
 
-import { Kriteria } from '@/types';
+import { Lahan } from '@/types';
 
 import {
     AlertDialog,
@@ -17,38 +17,38 @@ import {
 
 interface DeleteProps {
     open: boolean;
-    data: Kriteria;
-    onClose: () => void;
+    setOpen: (open: boolean) => void;
+    lahan: Lahan;
 }
 
-function Delete({ open, data, onClose }: DeleteProps) {
+function Delete({ open, setOpen, lahan }: DeleteProps) {
     // states
     const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
 
     // events
-    const handleDelete = async (id: string) => {
+    const handleDelete = async () => {
         setIsDeleting(true);
-        router.delete(route('kriteria.destroy', id), {
+        router.delete(route('lahan.destroy', lahan.id), {
             onSuccess: () => {
-                onClose();
+                setOpen(false);
                 setIsDeleting(false);
             },
         });
     };
 
     return (
-        <AlertDialog open={open} onOpenChange={onClose}>
+        <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>Yakin ingin menghapus?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Kriteria <strong className="text-primary">{data.nama}</strong> akan dihapus
+                        Lahan <strong className="text-primary">{lahan.nama}</strong> akan dihapus
                         secara permanen dan tidak bisa dikembalikan.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel disabled={isDeleting}>Batal</AlertDialogCancel>
-                    <AlertDialogAction disabled={isDeleting} onClick={() => handleDelete(data.id)}>
+                    <AlertDialogAction disabled={isDeleting} onClick={() => handleDelete()}>
                         {isDeleting && <Loader2 className="animate-spin" />}
                         {isDeleting ? 'Menghapus...' : 'Hapus'}
                     </AlertDialogAction>
