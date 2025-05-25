@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/react';
 import { Loader2 } from 'lucide-react';
 
 import { Kriteria, SyaratTanam, Tanaman } from '@/types';
+import { nilaiSubKriteria } from '@/data/options';
 
 import {
     Sheet,
@@ -21,7 +22,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
 
 interface FormSheetProps {
     type: 'create' | 'edit';
@@ -165,10 +165,6 @@ function FormSheet({ type, data, open, onClose, tanaman, kriteria }: FormSheetPr
                             value={formData.id_sub_kriteria}
                             onValueChange={e => {
                                 setData('id_sub_kriteria', e);
-                                const findNilai = findSub?.sub_kriteria.find(sk => sk.id === e);
-                                if (findNilai) {
-                                    setData('nilai', findNilai.nilai.toString());
-                                }
                             }}
                             disabled={!findSub}
                         >
@@ -194,16 +190,22 @@ function FormSheet({ type, data, open, onClose, tanaman, kriteria }: FormSheetPr
                     {/* nilai */}
                     <div className="flex w-full flex-col gap-2">
                         <Label htmlFor="nilai">Nilai</Label>
-                        <Input
-                            id="nilai"
+                        <Select
                             name="nilai"
-                            defaultValue={formData.nilai}
-                            readOnly
-                            disabled
-                        />
-                        <p className="text-[0.8rem] text-muted-foreground">
-                            Nilai akan dihitung otomatis setelah memilih sub kriteria.
-                        </p>
+                            value={formData.nilai}
+                            onValueChange={e => setData('nilai', e)}
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {nilaiSubKriteria.map(sk => (
+                                    <SelectItem key={sk.value} value={sk.value}>
+                                        {sk.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                         <InputError message={errors.nilai} />
                     </div>
 

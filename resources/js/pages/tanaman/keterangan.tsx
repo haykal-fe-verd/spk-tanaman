@@ -2,7 +2,7 @@ import React from 'react';
 
 function Keterangan() {
     return (
-        <p className="text-muted-foreground text-sm text-justify">
+        <div className="text-muted-foreground text-sm text-justify">
             <strong>Keterangan:</strong>
             <br />
             <span>
@@ -31,7 +31,7 @@ function Keterangan() {
                 Pastikan informasi nama tanaman ditulis dengan benar dan konsisten agar mudah
                 dikenali oleh pengguna sistem lainnya.
             </span>
-        </p>
+        </div>
     );
 }
 

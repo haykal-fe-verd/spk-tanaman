@@ -1,9 +1,8 @@
-import React from "react";
-import { useForm } from "@inertiajs/react";
-import { Loader2 } from "lucide-react";
+import React from 'react';
+import { useForm } from '@inertiajs/react';
+import { Loader2 } from 'lucide-react';
 
-import { Kriteria, SubKriteria } from "@/types";
-import { nilaiSubKriteria } from "@/data/options";
+import { Kriteria, SubKriteria } from '@/types';
 
 import {
     Sheet,
@@ -11,21 +10,21 @@ import {
     SheetDescription,
     SheetHeader,
     SheetTitle,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import InputError from "@/components/input-error";
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import InputError from '@/components/input-error';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 interface FormSheetProps {
-    type: "create" | "edit";
+    type: 'create' | 'edit';
     data?: SubKriteria;
     open: boolean;
     onClose: () => void;
@@ -35,7 +34,6 @@ interface FormSheetProps {
 type FormInput = {
     id_kriteria: string;
     nama: string;
-    nilai: string;
 };
 
 function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
@@ -49,26 +47,25 @@ function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
         errors,
         reset,
     } = useForm<FormInput>({
-        id_kriteria: data?.id_kriteria || "",
-        nama: data?.nama || "",
-        nilai: data?.nilai != null ? data.nilai.toString() : "",
+        id_kriteria: data?.id_kriteria || '',
+        nama: data?.nama || '',
     });
 
     // states
-    const isEdit = type === "edit";
+    const isEdit = type === 'edit';
 
     // events
-    const onSubmit: React.FormEventHandler = async (e) => {
+    const onSubmit: React.FormEventHandler = async e => {
         e.preventDefault();
         if (isEdit && data) {
-            put(route("subkriteria.update", data.id), {
+            put(route('subkriteria.update', data.id), {
                 onSuccess: () => {
                     reset();
                     onClose();
                 },
             });
         } else {
-            post(route("subkriteria.store"), {
+            post(route('subkriteria.store'), {
                 onSuccess: () => {
                     reset();
                     onClose();
@@ -82,10 +79,9 @@ function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
             setData({
                 id_kriteria: data.id_kriteria,
                 nama: data.nama,
-                nilai: data.nilai === null ? "" : data.nilai.toString(),
             });
         } else {
-            setData({ nama: "", id_kriteria: "", nilai: "" });
+            setData({ nama: '', id_kriteria: '' });
         }
     }, [data, isEdit, setData]);
 
@@ -94,14 +90,12 @@ function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
             <SheetContent side="right">
                 <SheetHeader>
                     <SheetTitle>
-                        {type === "create"
-                            ? "Tambah Sub Kriteria"
-                            : "Edit Sub Kriteria"}
+                        {type === 'create' ? 'Tambah Sub Kriteria' : 'Edit Sub Kriteria'}
                     </SheetTitle>
                     <SheetDescription>
-                        {type === "create"
-                            ? "Masukkan informasi sub kriteria baru."
-                            : "Perbarui data sub kriteria."}
+                        {type === 'create'
+                            ? 'Masukkan informasi sub kriteria baru.'
+                            : 'Perbarui data sub kriteria.'}
                     </SheetDescription>
                 </SheetHeader>
 
@@ -110,19 +104,15 @@ function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
                     <div className="flex w-full flex-col gap-2">
                         <Label htmlFor="nama">Kriteria</Label>
                         <Select
-                            onValueChange={(e) => setData("id_kriteria", e)}
+                            onValueChange={e => setData('id_kriteria', e)}
                             defaultValue={formData.id_kriteria}
                         >
                             <SelectTrigger className="capitalize">
                                 <SelectValue placeholder="" />
                             </SelectTrigger>
                             <SelectContent>
-                                {kriteria.map((k) => (
-                                    <SelectItem
-                                        key={k.id}
-                                        value={k.id}
-                                        className="capitalize"
-                                    >
+                                {kriteria.map(k => (
+                                    <SelectItem key={k.id} value={k.id} className="capitalize">
                                         {k.nama}
                                     </SelectItem>
                                 ))}
@@ -140,30 +130,9 @@ function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
                             type="text"
                             autoComplete="off"
                             value={formData.nama}
-                            onChange={(e) => setData("nama", e.target.value)}
+                            onChange={e => setData('nama', e.target.value)}
                         />
                         <InputError message={errors.nama} />
-                    </div>
-
-                    {/* nilai */}
-                    <div className="flex w-full flex-col gap-2">
-                        <Label htmlFor="nilai">Nilai</Label>
-                        <Select
-                            value={formData.nilai?.toString()}
-                            onValueChange={(e) => setData("nilai", e)}
-                        >
-                            <SelectTrigger>
-                                <SelectValue placeholder="" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {nilaiSubKriteria.map((i) => (
-                                    <SelectItem key={i.value} value={i.value}>
-                                        {i.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <InputError message={errors.nilai} />
                     </div>
 
                     <Button
@@ -172,7 +141,7 @@ function FormSheet({ type, data, open, onClose, kriteria }: FormSheetProps) {
                         className="inline-flex w-fit items-center justify-center"
                     >
                         {processing && <Loader2 className="animate-spin" />}
-                        {isEdit ? "Simpan Perubahan" : "Tambah"}
+                        {isEdit ? 'Simpan Perubahan' : 'Tambah'}
                     </Button>
                 </form>
             </SheetContent>

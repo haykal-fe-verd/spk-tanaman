@@ -45,6 +45,7 @@ class GetLahan
         $query = Lahan::with([
             'kriteriaLahan.kriteria',
             'kriteriaLahan.subKriteria'
+
         ])->where('id_user', $request->user()->id);
 
         $query = $this->applySearch($query, $request, ['nama']);

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Keterangan() {
     return (
-        <p className="text-muted-foreground text-sm text-justify">
+        <div className="text-muted-foreground text-sm text-justify">
             Halaman ini digunakan untuk mengelola informasi <strong>lahan milik petani</strong>.
             Setiap lahan memiliki nama, lokasi, luas, serta kondisi tertentu yang dinilai
             berdasarkan
@@ -24,7 +24,7 @@ function Keterangan() {
             <br />
             Data lahan ini akan digunakan oleh sistem untuk merekomendasikan tanaman yang paling
             sesuai berdasarkan kecocokan nilai kriteria dan syarat tanam.
-        </p>
+        </div>
     );
 }
 

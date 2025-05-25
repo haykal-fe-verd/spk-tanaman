@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import { SubKriteria } from "@/types";
-import { formatDate } from "@/lib/utils";
+import { SubKriteria } from '@/types';
+import { formatDate } from '@/lib/utils';
 
 import {
     Sheet,
@@ -9,8 +9,8 @@ import {
     SheetDescription,
     SheetHeader,
     SheetTitle,
-} from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
+} from '@/components/ui/sheet';
+import { Separator } from '@/components/ui/separator';
 
 interface DetailProps {
     data: SubKriteria;
@@ -24,9 +24,7 @@ function Detail({ data, open, onClose }: DetailProps) {
             <SheetContent side="right">
                 <SheetHeader>
                     <SheetTitle>Detail Sub Kriteria</SheetTitle>
-                    <SheetDescription>
-                        Informasi detail sub kriteria.
-                    </SheetDescription>
+                    <SheetDescription>Informasi detail sub kriteria.</SheetDescription>
                 </SheetHeader>
 
                 <div className="mt-10 w-full h-full overflow-y-auto space-y-5">
@@ -43,11 +41,6 @@ function Detail({ data, open, onClose }: DetailProps) {
                     <div className="flex flex-col gap-2">
                         <h5 className="text-primary">Nama Sub Kriteria:</h5>
                         <p>{data?.nama}</p>
-                    </div>
-                    <Separator />
-                    <div className="flex flex-col gap-2">
-                        <h5 className="text-primary">Nilai:</h5>
-                        <p className="capitalize">{data?.nilai}</p>
                     </div>
                     <Separator />
                     <div className="flex flex-col gap-2">

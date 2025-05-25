@@ -50,17 +50,17 @@ export const columns: ColumnDef<SyaratTanam>[] = [
         size: 40,
     },
     {
-        id: 'tanaman',
+        id: 'tanaman.nama',
         accessorKey: 'tanaman.nama',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Tanaman" />,
     },
     {
-        id: 'kriteria',
+        id: 'kriteria.nama',
         accessorKey: 'kriteria.nama',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Kriteria" />,
     },
     {
-        id: 'subkriteria',
+        id: 'subkriteria.nama',
         accessorKey: 'subkriteria.nama',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Sub Kriteria" />,
         enableSorting: false,

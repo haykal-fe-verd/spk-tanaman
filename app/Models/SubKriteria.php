@@ -18,7 +18,6 @@ class SubKriteria extends Model
     protected $fillable = [
         'id_kriteria',
         'nama',
-        'nilai'
     ];
 
     // relasi

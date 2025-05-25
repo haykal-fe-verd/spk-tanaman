@@ -2,7 +2,7 @@ import React from 'react';
 
 function Keterangan() {
     return (
-        <p className="text-muted-foreground text-sm text-justify">
+        <div className="text-muted-foreground text-sm text-justify">
             <strong>Keterangan:</strong>
             <br />
             <span>
@@ -28,7 +28,7 @@ function Keterangan() {
                 Data ini tidak diisi oleh petani, melainkan oleh admin berdasarkan pengetahuan pakar
                 atau referensi teknis pertanian.
             </span>
-        </p>
+        </div>
     );
 }
 

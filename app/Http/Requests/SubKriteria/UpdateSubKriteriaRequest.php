@@ -24,7 +24,6 @@ class UpdateSubKriteriaRequest extends FormRequest
         return [
             'id_kriteria' => ['required', 'exists:tb_kriteria,id'],
             'nama' => ['required', 'string', 'max:255'],
-            'nilai' => ['required'],
         ];
     }
 }

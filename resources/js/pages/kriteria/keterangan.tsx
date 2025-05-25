@@ -2,7 +2,7 @@ import React from 'react';
 
 function Keterangan() {
     return (
-        <p className="text-muted-foreground text-sm text-justify">
+        <div className="text-muted-foreground text-sm text-justify">
             <strong>Keterangan:</strong>
             <span>
                 <ul className="list-disc list-inside">
@@ -50,7 +50,7 @@ function Keterangan() {
                 melakukan
                 <strong> cek konsistensi </strong> menggunakan tombol di atas.
             </span>
-        </p>
+        </div>
     );
 }
 

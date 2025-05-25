@@ -50,7 +50,7 @@ export const columns: ColumnDef<SubKriteria>[] = [
         size: 40,
     },
     {
-        id: 'kriteria',
+        id: 'kriteria.nama',
         accessorKey: 'kriteria.nama',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Kriteria" />,
         cell: ({ row }) => {
@@ -62,17 +62,6 @@ export const columns: ColumnDef<SubKriteria>[] = [
         id: 'nama',
         accessorKey: 'nama',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Sub Kriteria" />,
-    },
-    {
-        id: 'nilai',
-        accessorKey: 'nilai',
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Nilai (TOPSIS)" />,
-        cell: ({ row }) => {
-            const nilai = row.getValue('nilai') as number;
-            return (
-                <div className="whitespace-nowrap">{nilai != null ? nilai.toFixed(1) : '-'}</div>
-            );
-        },
     },
     {
         id: 'created_at',

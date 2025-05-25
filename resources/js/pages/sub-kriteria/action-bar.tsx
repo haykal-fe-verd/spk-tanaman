@@ -38,16 +38,13 @@ function ActionBar({ table }: ActionBarProps) {
     const handleExportSelected = () => {
         if (selectedRows.length === 0) return;
 
-        const dataToExport = selectedRows.map(
-            ({ id, kriteria, nama, nilai, created_at, updated_at }) => ({
-                Id: id,
-                Kriteria: kriteria.nama,
-                Nama: nama,
-                'Nilai (Topsis)': nilai,
-                Created: formatDate(created_at),
-                Updated: formatDate(updated_at),
-            })
-        );
+        const dataToExport = selectedRows.map(({ id, kriteria, nama, created_at, updated_at }) => ({
+            Id: id,
+            Kriteria: kriteria.nama,
+            Nama: nama,
+            Created: formatDate(created_at),
+            Updated: formatDate(updated_at),
+        }));
 
         const worksheet = XLSX.utils.json_to_sheet(dataToExport);
         const workbook = XLSX.utils.book_new();

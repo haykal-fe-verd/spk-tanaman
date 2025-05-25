@@ -20,9 +20,6 @@ return new class extends Migration
                 ->comment('id kriteria');
             $table->string('nama')
                 ->comment('nama sub kriteria');
-            $table->decimal('nilai', 5, 4)
-                ->nullable()
-                ->comment('nilai sub kriteria (nilai TOPSIS)');
             $table->timestamps();
         });
     }

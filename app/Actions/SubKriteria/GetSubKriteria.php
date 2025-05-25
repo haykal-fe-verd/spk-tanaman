@@ -16,14 +16,14 @@ class GetSubKriteria
     /**
      * Initialize the controller's properties.
      *
-     * Set the allowed sorts to ['nama', 'nilai', 'kriteria.nama', 'created_at', 'updated_at'],
+     * Set the allowed sorts to ['nama', 'kriteria.nama', 'created_at', 'updated_at'],
      * the default sort by to 'created_at',
      * the default sort direction to 'desc',
      * and the default per page to 10.
      */
     public function __construct()
     {
-        $this->allowedSorts = ['nama', 'nilai', 'kriteria.nama', 'created_at', 'updated_at'];
+        $this->allowedSorts = ['nama', 'kriteria.nama', 'created_at', 'updated_at'];
         $this->defaultSortBy = 'created_at';
         $this->defaultSortDir = 'desc';
         $this->defaultPerPage = 10;
@@ -45,7 +45,7 @@ class GetSubKriteria
         $kriteria = Kriteria::all();
         $query = SubKriteria::with('kriteria');
 
-        $query = $this->applySearch($query, $request, ['nama', 'nilai', 'kriteria.nama']);
+        $query = $this->applySearch($query, $request, ['nama', 'kriteria.nama']);
         $query = $this->applySort($query, $request);
         $perPage = $this->resolvePerPage($request);
         $response = $query->paginate($perPage)->withQueryString();

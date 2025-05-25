@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Search, SquarePen, Trash2 } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 import { cn, truncateWords } from '@/lib/utils';
 import { Lahan } from '@/types';
@@ -72,10 +73,12 @@ function CardLahan({ className, lahan, setOpen, setTypeAction, setSelectedData }
                 </ul>
             </CardContent>
             <CardFooter>
-                <Button className="w-full">
-                    <Search />
-                    Lihat Detail & Rekomendasi
-                </Button>
+                <Link href={route('rekomendasi.index', lahan.id)} className="w-full">
+                    <Button className="w-full">
+                        <Search />
+                        Lihat Detail & Rekomendasi
+                    </Button>
+                </Link>
             </CardFooter>
         </Card>
     );

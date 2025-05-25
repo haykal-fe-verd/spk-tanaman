@@ -17,14 +17,14 @@ class GetSyaratTanam
     /**
      * Initialize the controller's properties.
      *
-     * Set the allowed sorts to ['tanaman.nama', 'kriteria.nama', 'created_at', 'updated_at'],
+     * Set the allowed sorts to ['tanaman.nama', 'kriteria.nama', 'nilai', 'created_at', 'updated_at'],
      * the default sort by to 'created_at',
      * the default sort direction to 'desc',
      * and the default per page to 10.
      */
     public function __construct()
     {
-        $this->allowedSorts = ['tanaman.nama', 'kriteria.nama', 'created_at', 'updated_at'];
+        $this->allowedSorts = ['tanaman.nama', 'kriteria.nama', 'nilai', 'created_at', 'updated_at'];
         $this->defaultSortBy = 'created_at';
         $this->defaultSortDir = 'desc';
         $this->defaultPerPage = 10;
@@ -45,7 +45,7 @@ class GetSyaratTanam
     {
         $query = SyaratTanam::with(['tanaman', 'kriteria', 'subkriteria']);
 
-        $query = $this->applySearch($query, $request, ['tanaman.nama', 'kriteria.nama']);
+        $query = $this->applySearch($query, $request, ['tanaman.nama', 'nilai', 'kriteria.nama']);
         $query = $this->applySort($query, $request);
         $perPage = $this->resolvePerPage($request);
         $response = $query->paginate($perPage)->withQueryString();

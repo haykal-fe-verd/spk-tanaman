@@ -74,7 +74,6 @@ export type SubKriteria = {
     id: string;
     id_kriteria: string;
     nama: string;
-    nilai: number;
     created_at: string;
     updated_at: string;
     kriteria: Kriteria;
@@ -95,6 +94,7 @@ export type NilaiPerbandingan = {
 // syarat tanam
 export type SyaratTanam = {
     id: string;
+    nama: string;
     id_tanaman: string;
     id_kriteria: string;
     id_sub_kriteria: string;
@@ -149,4 +149,25 @@ export interface RiwayatTanam {
     tanggal_istirahat: string;
     created_at: string;
     updated_at: string;
+    tanaman: Tanaman;
+    kriteria_riwayat_tanam: {
+        id: 'string';
+        id_lahan: 'string';
+        id_kriteria: 'string';
+        id_sub_kriteria: 'string';
+        created_at: 'string';
+        updated_at: 'string';
+        kriteria: Kriteria;
+        sub_kriteria: SubKriteria;
+    }[];
+    kriteria_riwayat: {
+        id: 'string';
+        id_lahan: 'string';
+        id_kriteria: 'string';
+        id_sub_kriteria: 'string';
+        created_at: 'string';
+        updated_at: 'string';
+        kriteria: Kriteria;
+        sub_kriteria: SubKriteria;
+    }[];
 }
