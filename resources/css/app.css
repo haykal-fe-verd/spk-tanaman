@@ -37,21 +37,16 @@
         --sidebar-border: 261.43 18.42% 85.1%;
         --sidebar-ring: 260.4 22.94% 57.25%;
         --font-sans: Geist, sans-serif;
-        --font-serif: "Lora", Georgia, serif;
-        --font-mono: "Fira Code", "Courier New", monospace;
+        --font-serif: 'Lora', Georgia, serif;
+        --font-mono: 'Fira Code', 'Courier New', monospace;
         --radius: 0.5rem;
         --shadow-2xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
         --shadow-xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
-        --shadow-sm: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 1px 2px 0px hsl(0 0% 0% / 0.06);
-        --shadow: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 1px 2px 0px hsl(0 0% 0% / 0.06);
-        --shadow-md: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 2px 4px 0px hsl(0 0% 0% / 0.06);
-        --shadow-lg: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 4px 6px 0px hsl(0 0% 0% / 0.06);
-        --shadow-xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 8px 10px 0px hsl(0 0% 0% / 0.06);
+        --shadow-sm: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+        --shadow: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+        --shadow-md: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 2px 4px 0px hsl(0 0% 0% / 0.06);
+        --shadow-lg: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 4px 6px 0px hsl(0 0% 0% / 0.06);
+        --shadow-xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 8px 10px 0px hsl(0 0% 0% / 0.06);
         --shadow-2xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.15);
     }
 
@@ -89,21 +84,16 @@
         --sidebar-border: 249.47 19.59% 19.02%;
         --sidebar-ring: 263.08 32.5% 68.63%;
         --font-sans: Geist, sans-serif;
-        --font-serif: "Lora", Georgia, serif;
-        --font-mono: "Fira Code", "Courier New", monospace;
+        --font-serif: 'Lora', Georgia, serif;
+        --font-mono: 'Fira Code', 'Courier New', monospace;
         --radius: 0.5rem;
         --shadow-2xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
         --shadow-xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
-        --shadow-sm: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 1px 2px 0px hsl(0 0% 0% / 0.06);
-        --shadow: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 1px 2px 0px hsl(0 0% 0% / 0.06);
-        --shadow-md: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 2px 4px 0px hsl(0 0% 0% / 0.06);
-        --shadow-lg: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 4px 6px 0px hsl(0 0% 0% / 0.06);
-        --shadow-xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.06),
-            1px 8px 10px 0px hsl(0 0% 0% / 0.06);
+        --shadow-sm: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+        --shadow: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+        --shadow-md: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 2px 4px 0px hsl(0 0% 0% / 0.06);
+        --shadow-lg: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 4px 6px 0px hsl(0 0% 0% / 0.06);
+        --shadow-xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 8px 10px 0px hsl(0 0% 0% / 0.06);
         --shadow-2xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.15);
     }
 }

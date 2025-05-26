@@ -189,13 +189,12 @@ function FormModal({ open, setOpen, data, typeAction, tanaman, lahan, kriteria }
                                                     ? new Date(formData[field])
                                                     : undefined
                                             }
-                                            onSelect={(date: Date | undefined) =>
+                                            onSelect={(date: Date | undefined) => {
                                                 setData(
                                                     field as keyof typeof formData,
-                                                    date?.toISOString().split('T')[0] || ''
-                                                )
-                                            }
-                                            disabled={d => d > new Date()}
+                                                    date?.toISOString() || ''
+                                                );
+                                            }}
                                             initialFocus
                                         />
                                     </PopoverContent>

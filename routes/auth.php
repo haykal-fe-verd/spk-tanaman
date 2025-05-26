@@ -50,5 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::post('confirm-password', [AuthController::class, 'password_confirm_store']);
 
     // update password
+    Route::get('ganti-password', [AuthController::class, 'password_update_index'])->name('ganti.password.index');
     Route::put('password', [AuthController::class, 'password_update_store'])->name('password.update');
 });

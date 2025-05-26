@@ -9,6 +9,7 @@ use App\Actions\Auth\{
     ConfirmPasswordAction,
     UpdatePasswordAction,
     ForgotPasswordAction,
+    GantiPassword,
     ResetPasswordAction,
     VerifyEmailAction,
     SendEmailVerificationAction
@@ -123,21 +124,6 @@ class AuthController extends Controller
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
-    //! update password
-    /**
-     * Handle an incoming request to update the user's password.
-     *
-     * @param UpdatePasswordRequest $request
-     * @return RedirectResponse
-     */
-
-    public function password_update_store(UpdatePasswordRequest $request, UpdatePasswordAction $update): RedirectResponse
-    {
-        $update->execute($request->user(), $request->validated('password'));
-
-        return back();
-    }
-
     //! forgot password
     /**
      * Renders the forgot password page.
@@ -248,5 +234,36 @@ class AuthController extends Controller
         $send->execute($request->user());
 
         return back()->with('status', 'verification-link-sent');
+    }
+
+    //! update password
+    /**
+     * Handle an incoming request to update the user's password.
+     *
+     * @param UpdatePasswordRequest $request
+     * @return RedirectResponse
+     */
+    public function password_update_store(UpdatePasswordRequest $request, UpdatePasswordAction $update): RedirectResponse
+    {
+        $update->execute($request->user(), $request->validated('password'));
+
+        return back()->with('success', 'Password berhasil diperbarui');
+    }
+
+    //! ganti password
+    /**
+     * Render the password update page.
+     *
+     * This method renders the password update page where the user can enter
+     * their current password, new password, and confirm their new password.
+     * It will also display any validation errors as a result of the user's
+     * input.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function password_update_index(Request $request): Response
+    {
+        return (new GantiPassword())->execute($request);
     }
 }

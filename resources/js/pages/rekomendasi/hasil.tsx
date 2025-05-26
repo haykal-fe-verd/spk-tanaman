@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Download } from 'lucide-react';
+import * as XLSX from 'xlsx';
 
 import { cn } from '@/lib/utils';
 import { Lahan } from '@/types';
@@ -41,6 +42,24 @@ function HasilRekomendasiPage({ result, lahan }: HasilRekomendasiPageProps) {
           )
         : null;
 
+    // events
+    const handleExportExcel = () => {
+        if (result.length === 0) return;
+
+        const dataToExport = result.map(({ id, nama, keterangan, score }) => ({
+            Id: id,
+            Nama: nama,
+            'Skor Preferensi': score,
+            Keterangan: keterangan,
+        }));
+
+        const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Rekomendasi');
+
+        XLSX.writeFile(workbook, 'rekomendasi.xlsx');
+    };
+
     return (
         <UserLayout title="Hasil Rekomendasi">
             <PageWrapper title="Hasil Rekomendasi" Icon={CheckCircle2}>
@@ -73,7 +92,13 @@ function HasilRekomendasiPage({ result, lahan }: HasilRekomendasiPageProps) {
 
                 <Card className={cn('bg-background rounded-md')}>
                     <CardHeader>
-                        <CardTitle>Rekomendasi Tanaman</CardTitle>
+                        <CardTitle className="flex flex-col lg:flex-row justify-between gap-5   ">
+                            <h3>Rekomendasi Tanaman</h3>
+                            <Button size="sm" className="w-fit" onClick={handleExportExcel}>
+                                <Download />
+                                Export ke Excel
+                            </Button>
+                        </CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="overflow-hidden rounded-md border">
