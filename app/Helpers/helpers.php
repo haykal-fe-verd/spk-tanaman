@@ -11,6 +11,7 @@ class Helpers
      *
      * @return bool True if the user is an administrator, false otherwise.
      */
+
     function is_admin(): bool
     {
         return Auth::check() && Auth::user()->role === 'admin';

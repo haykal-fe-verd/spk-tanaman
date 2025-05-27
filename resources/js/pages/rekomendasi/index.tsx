@@ -12,6 +12,7 @@ import CardRiwayatTanam from '@/components/card-riwayat-tanam';
 import Keterangan from './keterangan';
 import FormModal from './form';
 import Delete from './delete';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface RekomendasiPageProps {
     lahan: Lahan;
@@ -67,21 +68,36 @@ function RekomendasiPage({ lahan, tanaman, kriteria }: RekomendasiPageProps) {
                 <Separator />
 
                 {/* button */}
-                <Button
-                    onClick={() => {
-                        router.post(
-                            route('rekomendasi.calculate', lahan.id),
-                            {},
-                            {
-                                preserveState: true,
-                                preserveScroll: true,
-                            }
-                        );
-                    }}
-                >
-                    <ArrowUpWideNarrow />
-                    Proses Rekomendasi (TOPSIS)
-                </Button>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <Button
+                                className="w-full"
+                                onClick={() => {
+                                    router.post(
+                                        route('rekomendasi.calculate', lahan.id),
+                                        {},
+                                        {
+                                            preserveState: true,
+                                            preserveScroll: true,
+                                        }
+                                    );
+                                }}
+                                disabled={lahan.riwayat_tanam.length === 0}
+                            >
+                                <ArrowUpWideNarrow />
+                                Proses Rekomendasi (TOPSIS)
+                            </Button>
+                        </TooltipTrigger>
+
+                        {lahan.riwayat_tanam.length === 0 && (
+                            <TooltipContent>
+                                Harap tambahkan riwayat tanam terlebih dahulu.
+                            </TooltipContent>
+                        )}
+                    </Tooltip>
+                </TooltipProvider>
+
                 <Button
                     size="sm"
                     variant="destructive"

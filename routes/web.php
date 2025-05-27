@@ -1,12 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
-//! global route
 Route::middleware('guest')->group(function () {
     // home
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -15,15 +13,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // profile
+    Route::get('/profile', [AuthController::class, 'profile_index'])->name('profile.index');
+    Route::post('/profile', [AuthController::class, 'profile_post'])->name('profile.post');
+    Route::delete('/profile', [AuthController::class, 'profile_destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'password.confirm'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-//! other route
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/user.php';

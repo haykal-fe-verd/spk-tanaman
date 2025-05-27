@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class FileUploadService
+
+trait ImageUpload
 {
     /**
      * Upload a file from a request to the default filesystem disk.
@@ -18,11 +19,19 @@ class FileUploadService
      */
     public function upload(Request $request, string $key, string $path, string|null $existing = null): ?string
     {
-        if ($existing) {
-            Storage::delete($existing);
+        if ($request->hasFile($key)) {
+            $request->validate([
+                $key => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            if ($existing && Storage::exists($existing)) {
+                Storage::delete($existing);
+            }
+
+            return $request->file($key)->store($path);
         }
 
-        return $request->file($key)->store($path);
+        return $existing;
     }
 
     /**

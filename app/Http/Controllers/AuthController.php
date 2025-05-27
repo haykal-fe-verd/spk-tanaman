@@ -10,6 +10,9 @@ use App\Actions\Auth\{
     UpdatePasswordAction,
     ForgotPasswordAction,
     GantiPassword,
+    ProfileDestroy,
+    ProfileIndex,
+    ProfilePost,
     ResetPasswordAction,
     VerifyEmailAction,
     SendEmailVerificationAction
@@ -19,6 +22,7 @@ use App\Http\Requests\Auth\{
     RegisterRequest,
     UpdatePasswordRequest,
     ForgotPasswordRequest,
+    ProfileUpdateRequest,
     ResetPasswordRequest
 };
 use App\Models\User;
@@ -265,5 +269,51 @@ class AuthController extends Controller
     public function password_update_index(Request $request): Response
     {
         return (new GantiPassword())->execute($request);
+    }
+
+    //! profile
+    /**
+     * Display the authenticated user's profile.
+     *
+     * This method will determine which profile to display based on the user's
+     * role. If the user is an admin, it will display the admin profile. If the
+     * user is not an admin, it will display the user profile.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function profile_index(Request $request): Response
+    {
+        return (new ProfileIndex())->execute($request);
+    }
+
+    /**
+     * Updates the authenticated user's profile information.
+     *
+     * This method will update the user's profile information with the provided
+     * input. It will also update the user's email if the user is providing a
+     * new email address.
+     *
+     * @param ProfileUpdateRequest $request
+     * @return RedirectResponse
+     */
+    public function profile_post(ProfileUpdateRequest $request, ProfilePost $profilePost): RedirectResponse
+    {
+        return $profilePost->execute($request);
+    }
+
+    /**
+     * Handle an incoming request to delete the user's account.
+     *
+     * This method will delete the user's account and log the user out of the
+     * application. It will also invalidate the user's session and regenerate
+     * the CSRF token.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function profile_destroy(Request $request): RedirectResponse
+    {
+        return (new ProfileDestroy())->execute($request);
     }
 }
