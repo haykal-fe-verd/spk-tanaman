@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     // home
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::post('/', [HomeController::class, 'store'])->name('home.store');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
