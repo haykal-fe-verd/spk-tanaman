@@ -7,6 +7,7 @@ use App\Models\KriteriaRiwayatTanam;
 use App\Models\RiwayatTanam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class StoreRiwayatTanam
 {
@@ -29,9 +30,9 @@ class StoreRiwayatTanam
             $riwayat = RiwayatTanam::create([
                 'id_lahan' => $request->input('id_lahan'),
                 'id_tanaman' => $request->input('id_tanaman'),
-                'tanggal_tanam' => $request->input('tanggal_tanam'),
-                'tanggal_panen' => $request->input('tanggal_panen'),
-                'tanggal_istirahat' => $request->input('tanggal_istirahat'),
+                'tanggal_tanam' => Carbon::parse($request->input('tanggal_tanam'))->format('Y-m-d'),
+                'tanggal_panen' => Carbon::parse($request->input('tanggal_panen'))->format('Y-m-d'),
+                'tanggal_istirahat' => Carbon::parse($request->input('tanggal_istirahat'))->format('Y-m-d'),
             ]);
 
             $kriteriaInput = $request->input('kriteria', []);
